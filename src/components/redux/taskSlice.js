@@ -3,7 +3,7 @@ import storage from '../../storage.js';
 
 const taskSlice = createSlice({
 	name: 'tasks',
-	initialState: storage.getTasks(),
+	initialState: storage.getTasks() || [],
 	reducers: {
 		addTask: (state, action) => {
 			const newTask = action.payload;
