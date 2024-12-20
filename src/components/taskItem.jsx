@@ -6,18 +6,13 @@ import { useDispatch } from "react-redux";
 import { deleteTask as deleteTaskAction } from "./redux/taskSlice.js";
 import ConfirmationModal from "./confirmationModal";
 
-const TaskItem = ({ task, updateTask, deleteTask, onDrop, onDragOver, onDragStart, onDragEnd, isDragging }) => {
+const TaskItem = ({ task, onDrop, onDragOver, onDragStart, onDragEnd, isDragging }) => {
   const [showActions, setShowActions] = useState(false);
   const [showViewTask, setShowViewTask] = useState(false);
   const [showEditTask, setShowEditTask] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const dispatch = useDispatch();
-
-  const handleEdit = (updatedTask) => {
-    updateTask(task.id, updatedTask);
-    setShowEditTask(false);
-  };
 
   const toggleActions = () => {
     setShowActions(!showActions);
@@ -89,7 +84,7 @@ const TaskItem = ({ task, updateTask, deleteTask, onDrop, onDragOver, onDragStar
       {showViewTask && <ViewTask task={task} onClose={closeViewTask} />}
 
       {showEditTask && (
-        <EditTask task={task} onClose={closeEditTask} onSave={handleEdit} />
+        <EditTask task={task} onClose={closeEditTask} />
       )}
 
       {showConfirmation && (

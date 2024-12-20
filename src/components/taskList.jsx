@@ -3,7 +3,7 @@ import TaskItem from './taskItem';
 import { useDispatch } from 'react-redux';
 import { reorderTasks } from './redux/taskSlice.js';
 
-const TaskList = ({ tasks, updateTask, deleteTask, setTasks }) => {
+const TaskList = ({ tasks }) => {
   // OH MY GOD!!! DRAGGING FINALLY WORKSSSS!!!!!
   const dispatch = useDispatch();
   const [draggingIndex, setDraggingIndex] = useState(null);
@@ -32,8 +32,6 @@ const TaskList = ({ tasks, updateTask, deleteTask, setTasks }) => {
           <TaskItem
             key={task.id}
             task={task}
-            updateTask={updateTask}
-            deleteTask={deleteTask}
             onDrop={(e) => handleDrop(e, index)}
             onDragOver={(e) => e.preventDefault()}
             onDragStart={(e) => handleDragStart(e, index)}
