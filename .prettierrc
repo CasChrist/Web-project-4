@@ -1,0 +1,8 @@
+{
+	"bracketSameLine": true,
+	"requireConfig": true,
+	"singleQuote": true,
+	"useTabs": true,
+	"tabWidth": 2,
+	"trailingComma": "es5"
+}

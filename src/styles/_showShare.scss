@@ -1,0 +1,37 @@
+$primary-color: #1F1E1B;
+$accent-color: #FF8303;
+$primary-active: #1B1A17;
+$secondary-active: #A35709;
+$font-color: #F0E3CA;
+
+.share {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $primary-active;
+  padding: 14px 0;
+  padding-right: 16px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  z-index: 1000;
+  max-width: 360px;
+  max-height: 76px;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+
+  &__content {
+    display: flex;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__icons {
+    background-color: $primary-active;
+    box-shadow: none;
+    border: none;
+  }
+}
