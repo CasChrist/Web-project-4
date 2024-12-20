@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import storage from '../storage.js';
+import { useDispatch } from 'react-redux';
+import { updateTask } from './redux/taskSlice.js';
 
-const EditTask = ({ task, onClose, onSave }) => {
+const EditTask = ({ task, onClose }) => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -18,8 +20,7 @@ const EditTask = ({ task, onClose, onSave }) => {
       title,
       description,
     };
-    storage.updateTask(task.id, updatedTask);
-    onSave(updatedTask);
+    dispatch(updateTask({ id: task.id, updates: updatedTask }));
     onClose();
   };
 

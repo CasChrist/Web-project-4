@@ -1,40 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { addTask as addTaskAction } from "./components/redux/taskSlice.js";
 import CreateTask from './components/createTask';
 import TaskList from './components/taskList';
-import storage from './storage.js';
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    const storedTasks = storage.getTasks();
-    setTasks(storedTasks);
-  }, []);
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const addTask = (task) => {
-    storage.addTask(task);
-    setTasks([...tasks, task]);
-  };
-
-  const updateTask = (taskID, updatedTask) => {
-    storage.updateTask(taskID, updatedTask);
-    setTasks(tasks.map(task => (task.id === taskID ? updatedTask : task)));
-  };
-
-  const deleteTask = (taskID) => {
-    storage.deleteTask(taskID);
-    setTasks(tasks.filter(task => task.id !== taskID));
+    dispatch(addTaskAction(task));
   };
 
   return (
     <div className="createTaskContainer">
       <CreateTask addTask={addTask} />
-      <TaskList
-        tasks={tasks}
-        updateTask={updateTask}
-        deleteTask={deleteTask}
-        setTasks={setTasks}
-      />
+      <TaskList tasks={tasks} />
     </div>
   );
 };
