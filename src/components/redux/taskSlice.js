@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import storage from '../storage';
+import storage from '../../storage.js';
 
 const taskSlice = createSlice({
 	name: 'tasks',
 	initialState: storage.getTasks(),
 	reducers: {
 		addTask: (state, action) => {
-			const newTask = storage.addTask(action.payload);
+			const newTask = action.payload;
 			state.push(newTask);
+      storage.addTask(newTask);
 		},
 
 		deleteTask: (state, action) => {
@@ -24,13 +25,13 @@ const taskSlice = createSlice({
 			}
 		},
 
-		setTasks: (action) => {
+		setTasks: (state, action) => {
 			return action.payload;
 		},
 	},
 });
 
-export const { addTask, deleteTask, updateTask, reorderTasks } =
+export const { addTask, deleteTask, updateTask, setTasks } =
 	taskSlice.actions;
 
 export default taskSlice.reducer;

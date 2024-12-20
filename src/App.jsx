@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTask, updateTask, setTasks, addTask as addTaskAction } from "./components/redux/taskSlice.js";
 import CreateTask from './components/createTask';
 import TaskList from './components/taskList';
-import storage from './storage.js';
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    const storedTasks = storage.getTasks();
-    setTasks(storedTasks);
-  }, []);
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const addTask = (task) => {
-    storage.addTask(task);
-    setTasks([...tasks, task]);
+    dispatch(addTaskAction(task));
   };
 
-  const updateTask = (taskID, updatedTask) => {
-    storage.updateTask(taskID, updatedTask);
-    setTasks(tasks.map(task => (task.id === taskID ? updatedTask : task)));
+  const updateTaskItem = (taskID, updatedTask) => {
+    dispatch(updateTask({id: taskID, updates: updatedTask}))
   };
 
-  const deleteTask = (taskID) => {
-    storage.deleteTask(taskID);
-    setTasks(tasks.filter(task => task.id !== taskID));
+  const deleteTaskItem = (taskID) => {
+    dispatch(deleteTask(taskID));
   };
 
   return (
@@ -31,8 +25,8 @@ const App = () => {
       <CreateTask addTask={addTask} />
       <TaskList
         tasks={tasks}
-        updateTask={updateTask}
-        deleteTask={deleteTask}
+        updateTask={updateTaskItem}
+        deleteTask={deleteTaskItem}
         setTasks={setTasks}
       />
     </div>
